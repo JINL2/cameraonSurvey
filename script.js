@@ -589,7 +589,7 @@ form.addEventListener('submit', async (e) => {
             if (couponContainer) {
                 couponContainer.innerHTML = `
                     <h3>🎁 Phiếu giảm giá đặc biệt</h3>
-                    <p class="coupon-value">${promotionDiscount.toLocaleString('vi-VN')} VND</p>
+                    <p class="coupon-value">${promotionDiscount.toLocaleString('vi-VN')}<br><span class="coupon-currency">VND</span></p>
                     <p class="coupon-code">${promotionCode}</p>
                     <p class="coupon-info">1. Sử dụng nó vào lần tiếp theo bạn đến (nhập coupon khi bạn thanh toán tại máy)</p>
                     <p class="coupon-info">2. Nếu như bạn nhập mã mà không dùng luôn thì coupon sẽ bị vô hiệu</p>
