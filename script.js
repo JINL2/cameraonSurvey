@@ -341,6 +341,16 @@ form.addEventListener('submit', async (e) => {
     errorMessage.innerHTML = '';
     
     try {
+        // 위치 필수 검증
+        const location = document.getElementById('location').value;
+        if (!location || location === '') {
+            alert('Vui lòng chọn chi nhánh bạn đã ghé thăm.');
+            submitButton.disabled = false;
+            submitButton.textContent = 'Gửi ý kiến';
+            submitButton.classList.remove('loading');
+            return;
+        }
+        
         // 사진 필수 검증 (둘 다 필수)
         const digitalLink = document.getElementById('digitalLink').value;
         if (!digitalLink) {
@@ -444,7 +454,7 @@ form.addEventListener('submit', async (e) => {
             digital_photo_link: digitalLink,
             customer_opinion: document.getElementById('opinion').value || null,
             would_recommend: document.getElementById('recommend').checked,
-            booth_location: document.getElementById('location').value || null,
+            booth_location: location,
             physical_photo_url: null,
             positive_feedback: positiveFeedback,
             negative_feedback: negativeFeedback
@@ -579,7 +589,7 @@ form.addEventListener('submit', async (e) => {
             if (couponContainer) {
                 couponContainer.innerHTML = `
                     <h3>🎁 Phiếu giảm giá đặc biệt</h3>
-                    <p class="coupon-value">${promotionDiscount.toLocaleString()} VND</p>
+                    <p class="coupon-value">${promotionDiscount.toLocaleString('vi-VN')} VND</p>
                     <p class="coupon-code">${promotionCode}</p>
                     <p class="coupon-info">1. Sử dụng nó vào lần tiếp theo bạn đến (nhập coupon khi bạn thanh toán tại máy)</p>
                     <p class="coupon-info">2. Nếu như bạn nhập mã mà không dùng luôn thì coupon sẽ bị vô hiệu</p>
