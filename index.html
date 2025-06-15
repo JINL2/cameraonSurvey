@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cameraon - Ý kiến quý báu của khách hàng</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="../design_resources/logos/cropped_logo.png" alt="Camera On" class="main-logo">
+            </div>
+            <p class="subtitle">Vui lòng chia sẻ ý kiến quý báu của bạn</p>
+        </header>
+
+        <form id="feedbackForm">
+            <!-- 평점 섹션 -->
+            <div class="form-section">
+                <label class="section-title">Trải nghiệm hôm nay của bạn thế nào?</label>
+                <div class="rating-container">
+                    <input type="radio" name="rating" value="1" id="star1">
+                    <label for="star1">⭐</label>
+                    <input type="radio" name="rating" value="2" id="star2">
+                    <label for="star2">⭐</label>
+                    <input type="radio" name="rating" value="3" id="star3">
+                    <label for="star3">⭐</label>
+                    <input type="radio" name="rating" value="4" id="star4">
+                    <label for="star4">⭐</label>
+                    <input type="radio" name="rating" value="5" id="star5" checked>
+                    <label for="star5">⭐</label>
+                </div>
+            </div>
+
+            <!-- 좋았던 점 (필수) -->
+            <div class="form-section">
+                <label for="positiveAspects">Điều bạn hài lòng nhất là gì? *</label>
+                <div class="checkbox-group">
+                    <!-- 체크박스 항목은 JavaScript로 동적 생성됨 -->
+                </div>
+                <div id="positiveOtherSection" style="display: none; margin-top: 10px;">
+                    <textarea id="positiveOther" name="positiveOther" rows="2" 
+                        placeholder="Vui lòng chia sẻ những điều tốt khác"></textarea>
+                </div>
+            </div>
+
+            <!-- 개선사항 드롭다운 (선택사항) -->
+            <div class="form-section">
+                <label for="complaintSelect">Bạn có điều gì muốn chúng tôi cải thiện không? (Tùy chọn)</label>
+                <select id="complaintSelect" name="complaintSelect">
+                    <option value="">Vui lòng chọn</option>
+                    <!-- 옵션은 JavaScript로 동적 생성됨 -->
+                </select>
+                
+                <!-- 기타 개선사항 입력 -->
+                <div id="otherComplaintSection" style="display: none; margin-top: 10px;">
+                    <textarea id="otherComplaint" name="otherComplaint" rows="3" 
+                        placeholder="Vui lòng chia sẻ các đề xuất cải thiện khác"></textarea>
+                </div>
+            </div>
+
+            <!-- 의견 작성 (선택사항) -->
+            <div class="form-section">
+                <label for="opinion">Chia sẻ ý kiến của bạn (Tùy chọn)</label>
+                <textarea id="opinion" name="opinion" rows="4" 
+                    placeholder="Vui lòng chia sẻ trải nghiệm hôm nay của bạn"></textarea>
+            </div>
+
+            <!-- 사진 섹션 (필수 - 둘 다) -->
+            <div class="form-section photo-required-section">
+                <p class="photo-notice">Vui lòng cung cấp cả liên kết ảnh kỹ thuật số và ảnh thực tế (Bắt buộc)</p>
+                
+                <!-- 디지털 사진 링크 -->
+                <div class="photo-option">
+                    <label for="digitalLink">Liên kết ảnh kỹ thuật số *</label>
+                    <input type="url" id="digitalLink" name="digitalLink" placeholder="https://example.com/photo" required>
+                </div>
+
+                <!-- 실물 사진 업로드 -->
+                <div class="photo-option">
+                    <label for="photoUpload">Tải lên ảnh thực tế *</label>
+                    <div class="photo-upload-container">
+                        <input type="file" id="photoUpload" name="photoUpload" accept="image/*" hidden>
+                        <label for="photoUpload" class="upload-button">
+                            📷 Chọn ảnh
+                        </label>
+                        <div id="photoPreview" class="photo-preview"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 추천 여부 -->
+            <div class="form-section">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="recommend" name="recommend" checked>
+                    Tôi muốn giới thiệu cho bạn bè
+                </label>
+            </div>
+
+            <!-- 방문 위치 -->
+            <div class="form-section">
+                <label for="location">Chi nhánh bạn đã ghé thăm</label>
+                <select id="location" name="location">
+                    <option value="">Vui lòng chọn</option>
+                    <option value="Nhat Chieu">Nhật Chiêu</option>
+                    <option value="Chua Boc">Chùa Bộc</option>
+                </select>
+            </div>
+
+            <!-- 제출 버튼 -->
+            <button type="submit" class="submit-button">
+                Gửi ý kiến
+            </button>
+        </form>
+
+        <!-- 성공 메시지 -->
+        <div id="successMessage" class="success-message" style="display: none;">
+            <h2>🎉 Cảm ơn bạn!</h2>
+            <p>Ý kiến quý báu của bạn đã được gửi đi.</p>
+            <div class="coupon-container">
+                <!-- 프로모션 코드는 JavaScript로 동적으로 표시됩니다 -->
+            </div>
+            <button onclick="resetForm()" class="reset-button">Viết phản hồi mới</button>
+        </div>
+
+        <!-- 에러 메시지 -->
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <p>Đã xảy ra lỗi. Vui lòng thử lại.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
