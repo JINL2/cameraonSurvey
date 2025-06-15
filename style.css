@@ -33,21 +33,21 @@
 /* 폰트 설정 */
 @font-face {
     font-family: 'AmpleSoft';
-    src: url('../design_resources/fonts/AmpleSoft_Medium.ttf') format('truetype');
+    src: url('design_resources/fonts/AmpleSoft_Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Unbounded';
-    src: url('../design_resources/fonts/Unbounded-VariableFont_wght.ttf') format('truetype');
+    src: url('design_resources/fonts/Unbounded-VariableFont_wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MyriadPro';
-    src: url('../design_resources/fonts/MyriadPro-Regular.otf') format('opentype');
+    src: url('design_resources/fonts/MyriadPro-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
