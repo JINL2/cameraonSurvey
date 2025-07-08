@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Customer Feedback Management</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Day.js for date handling -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <h1>Customer Feedback</h1>
+        <button id="filterToggle" class="filter-toggle">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"/>
+            </svg>
+            Filters
+        </button>
+    </header>
+
+    <!-- Filter Panel -->
+    <div id="filterPanel" class="filter-panel">
+        <div class="filter-content">
+            <h3>Filter Options</h3>
+            
+            <!-- Date Range -->
+            <div class="filter-group">
+                <label>Date Range</label>
+                <input type="date" id="startDate" class="filter-input">
+                <input type="date" id="endDate" class="filter-input">
+            </div>
+            
+            <!-- Rating -->
+            <div class="filter-group">
+                <label>Rating</label>
+                <select id="ratingFilter" class="filter-select">
+                    <option value="">All Ratings</option>
+                    <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                    <option value="4">⭐⭐⭐⭐ (4)</option>
+                    <option value="3">⭐⭐⭐ (3)</option>
+                    <option value="2">⭐⭐ (2)</option>
+                    <option value="1">⭐ (1)</option>
+                </select>
+            </div>
+            
+            <!-- Booth Location -->
+            <div class="filter-group">
+                <label>Booth Location</label>
+                <select id="boothFilter" class="filter-select">
+                    <option value="">All Locations</option>
+                </select>
+            </div>
+            
+            <!-- Recommendation -->
+            <div class="filter-group">
+                <label>Recommendation</label>
+                <select id="recommendFilter" class="filter-select">
+                    <option value="">All</option>
+                    <option value="true">Recommended 👍</option>
+                    <option value="false">Not Recommended 👎</option>
+                </select>
+            </div>
+            
+            <!-- Search -->
+            <div class="filter-group">
+                <label>Search Opinion</label>
+                <input type="text" id="searchText" class="filter-input" placeholder="Search in customer opinions...">
+            </div>
+            
+            <div class="filter-actions">
+                <button id="applyFilters" class="btn btn-primary">Apply Filters</button>
+                <button id="resetFilters" class="btn btn-secondary">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="summary-stats">
+        <div class="stat-card">
+            <div class="stat-value" id="totalCount">0</div>
+            <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="avgRating">0.0</div>
+            <div class="stat-label">Avg Rating</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="recommendRate">0%</div>
+            <div class="stat-label">Recommend</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="feedback-list" id="feedbackList">
+        <!-- Loading skeleton -->
+        <div class="loading-skeleton">
+            <div class="skeleton-card">
+                <div class="skeleton-line skeleton-line-short"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line skeleton-line-medium"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+        <button id="prevPage" class="btn-page" disabled>Previous</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextPage" class="btn-page">Next</button>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="detail-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Feedback Details</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be dynamically inserted -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/detail.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
