@@ -294,9 +294,9 @@ async function backupDigitalPhoto(digitalLink) {
     try {
         console.log('Bắt đầu sao lưu ảnh kỹ thuật số:', digitalLink);
         
-        // HeadsUp 링크인지 확인
-        if (!digitalLink.includes('headsup.mx2.co.kr/@HUW')) {
-            console.log('Không phải liên kết HeadsUp nên không cần sao lưu.');
+        // HeadsUp 또는 CameraOn 링크인지 확인
+        if (!digitalLink.includes('headsup.mx2.co.kr/@HUW') && !digitalLink.includes('cameraon.mx2.co.kr/@HUW')) {
+            console.log('Không phải liên kết HeadsUp hoặc CameraOn nên không cần sao lưu.');
             return null;
         }
         
@@ -341,16 +341,6 @@ form.addEventListener('submit', async (e) => {
     errorMessage.innerHTML = '';
     
     try {
-        // 위치 필수 검증
-        const location = document.getElementById('location').value;
-        if (!location || location === '') {
-            alert('Vui lòng chọn chi nhánh bạn đã ghé thăm.');
-            submitButton.disabled = false;
-            submitButton.textContent = 'Gửi ý kiến';
-            submitButton.classList.remove('loading');
-            return;
-        }
-        
         // 사진 필수 검증 (둘 다 필수)
         const digitalLink = document.getElementById('digitalLink').value;
         if (!digitalLink) {
@@ -454,7 +444,7 @@ form.addEventListener('submit', async (e) => {
             digital_photo_link: digitalLink,
             customer_opinion: document.getElementById('opinion').value || null,
             would_recommend: document.getElementById('recommend').checked,
-            booth_location: location,
+            booth_location: document.getElementById('location').value || null,
             physical_photo_url: null,
             positive_feedback: positiveFeedback,
             negative_feedback: negativeFeedback
@@ -515,8 +505,8 @@ form.addEventListener('submit', async (e) => {
             formData.digital_photo_storage_link = digitalPhotoStorageLink;
             console.log('✅ Đã thêm URL sao lưu vào formData:', digitalPhotoStorageLink);
         } else {
-            console.warn('⚠️ URL sao lưu là null. Không phải liên kết HeadsUp hoặc sao lưu thất bại');
-            console.log('💡 Mẹo: Liên kết HeadsUp phải bắt đầu bằng http://headsup.mx2.co.kr/@HUW');
+            console.warn('⚠️ URL sao lưu là null. Không phải liên kết HeadsUp/CameraOn hoặc sao lưu thất bại');
+            console.log('💡 Mẹo: Liên kết phải bắt đầu bằng http://headsup.mx2.co.kr/@HUW hoặc http://cameraon.mx2.co.kr/@HUW');
         }
         
         console.log('formData cuối cùng:', formData);
@@ -589,7 +579,7 @@ form.addEventListener('submit', async (e) => {
             if (couponContainer) {
                 couponContainer.innerHTML = `
                     <h3>🎁 Phiếu giảm giá đặc biệt</h3>
-                    <p class="coupon-value">${promotionDiscount.toLocaleString('vi-VN')}<br><span class="coupon-currency">VND</span></p>
+                    <p class="coupon-value">${promotionDiscount.toLocaleString()} VND</p>
                     <p class="coupon-code">${promotionCode}</p>
                     <p class="coupon-info">1. Sử dụng nó vào lần tiếp theo bạn đến (nhập coupon khi bạn thanh toán tại máy)</p>
                     <p class="coupon-info">2. Nếu như bạn nhập mã mà không dùng luôn thì coupon sẽ bị vô hiệu</p>

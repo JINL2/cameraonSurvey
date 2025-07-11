@@ -33,21 +33,21 @@
 /* 폰트 설정 */
 @font-face {
     font-family: 'AmpleSoft';
-    src: url('design_resources/fonts/AmpleSoft_Medium.ttf') format('truetype');
+    src: url('../design_resources/fonts/AmpleSoft_Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Unbounded';
-    src: url('design_resources/fonts/Unbounded-VariableFont_wght.ttf') format('truetype');
+    src: url('../design_resources/fonts/Unbounded-VariableFont_wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MyriadPro';
-    src: url('design_resources/fonts/MyriadPro-Regular.otf') format('opentype');
+    src: url('../design_resources/fonts/MyriadPro-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
@@ -641,12 +641,11 @@ textarea {
 .coupon-container {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
     border-radius: 24px;
-    padding: 28px 20px;  /* 패딩 조정 */
-    margin: 32px auto;  /* 가운데 정렬 */
-    max-width: 480px;  /* 최대 너비 설정 */
+    padding: 32px 28px;  /* 왼우 패딩 조정 */
+    margin: 32px 0;
     text-align: center;
     position: relative;
-    overflow: visible;  /* 구멍이 보이도록 */
+    overflow: hidden;
     box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
     animation: couponGlow 2s ease-in-out infinite alternate;
 }
@@ -684,7 +683,7 @@ textarea {
 .coupon-container h3 {
     color: var(--color-white);
     font-family: 'AmpleSoft', sans-serif;
-    font-size: clamp(1.3rem, 3vw, 1.6rem);  /* 반응형 크기 */
+    font-size: 1.6rem;
     margin-bottom: 20px;
     font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -692,23 +691,12 @@ textarea {
 
 .coupon-value {
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 3.5rem);  /* 반응형 크기 */
+    font-size: 3.5rem;
     font-weight: 800;
     color: var(--color-white);
     margin-bottom: 16px;
     text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
     animation: valuePulse 2s ease-in-out infinite;
-    line-height: 1.2;  /* 줄 간격 조정 */
-    letter-spacing: 0.02em;  /* 약간의 간격 */
-}
-
-/* VND 통화 단위 스타일 */
-.coupon-currency {
-    font-size: 0.7em;  /* 더 작은 크기 */
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    display: inline-block;
-    margin-top: 4px;
 }
 
 @keyframes valuePulse {
@@ -719,18 +707,16 @@ textarea {
 .coupon-code {
     background: var(--color-white);
     display: inline-block;
-    padding: 12px 20px;  /* 패딩 조정 */
+    padding: 14px 36px;
     border-radius: 16px;
     font-family: 'Unbounded', monospace;
-    font-size: clamp(1.1rem, 2.5vw, 1.6rem);  /* 반응형 크기 */
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--color-primary);
     margin-bottom: 20px;
-    letter-spacing: 0.03em;  /* 간격 조정 */
+    letter-spacing: 0.1em;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     border: 2px dashed var(--color-primary);
-    word-break: break-all;  /* 긴 코드 줄바꿈 */
-    max-width: 85%;  /* 최대 너비 조정 */
 }
 
 .coupon-info {
@@ -854,77 +840,37 @@ select {
     padding-right: 48px;
 }
 
-/* Select placeholder 스타일 (첫 번째 option) */
-select:invalid,
-select option[value=""] {
-    color: #999;
-}
-
-select:valid {
-    color: var(--color-gray-dark);
-}
-
 /* 모바일 반응형 */
 @media (max-width: 640px) {
     .container {
-        padding: 28px 20px;
-        border-radius: 20px;
-        max-width: 100%;
-        margin: 10px;
+        padding: 32px 24px;
+        border-radius: 24px;
     }
     
     .container::before,
     .container::after {
-        font-size: 1.3rem;  /* 모바일에서 더 작게 */
-        display: none;  /* 좁은 화면에서는 숨김 */
+        font-size: 1.5rem;  /* 모바일에서 더 작게 */
     }
     
     .main-logo {
-        width: 160px;  /* 모바일에서 비례적 크기 */
+        width: 180px;  /* 모바일에서 비례적 크기 */
     }
     
     .section-title {
-        font-size: 1.05rem;  /* 모바일 크기 조정 */
-    }
-    
-    .rating-container {
-        gap: 6px;  /* 별 사이 간격 줄이기 */
-        padding: 14px;
+        font-size: 1.1rem;  /* 모바일 크기 조정 */
     }
     
     .rating-container label {
-        font-size: 2rem;  /* 모바일 크기 */
+        font-size: 2.3rem;  /* 모바일 크기 */
     }
     
-    .coupon-container {
-        padding: 24px 16px;
-        margin: 24px auto;  /* 좌우 여백 통일 */
-        width: calc(100% - 20px);  /* 양쪽에 여백 확보 */
-        max-width: 100%;
+    .coupon-value {
+        font-size: 2.8rem;
     }
     
-    .coupon-container::before,
-    .coupon-container::after {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .coupon-container::before {
-        left: -15px;
-    }
-    
-    .coupon-container::after {
-        right: -15px;
-    }
-    
-    .coupon-container h3 {
+    .coupon-code {
         font-size: 1.3rem;
-        margin-bottom: 16px;
-    }
-    
-    .coupon-info {
-        font-size: 0.85rem;
-        padding: 0 10px;
+        padding: 12px 28px;
     }
     
     .checkbox-group {
@@ -932,82 +878,7 @@ select:valid {
     }
     
     .submit-button {
-        font-size: 1rem;
-        padding: 14px;
-    }
-    
-    .submit-button::before,
-    .submit-button::after {
-        font-size: 1rem;
-    }
-    
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="url"],
-    select,
-    textarea {
-        padding: 14px 16px;
-        font-size: 0.95rem;
-    }
-}
-
-/* 초소형 화면 (스마트폰) */
-@media (max-width: 480px) {
-    .container {
-        padding: 24px 16px;
-        margin: 5px;
-    }
-    
-    .main-logo {
-        width: 140px;
-    }
-    
-    .subtitle {
-        font-size: 0.95rem;
-    }
-    
-    .section-title {
-        font-size: 1rem;
-    }
-    
-    .rating-container label {
-        font-size: 1.8rem;
-    }
-    
-    .coupon-container {
-        padding: 20px 14px;  /* 패딩 조정 */
-        margin: 20px auto;
-        width: calc(100% - 16px);
-    }
-    
-    .coupon-container h3 {
-        font-size: 1.2rem;
-    }
-    
-    .coupon-value {
-        font-size: 2.3rem;  /* 적절한 크기로 조정 */
-        line-height: 1.1;
-    }
-    
-    .coupon-code {
-        font-size: 1rem;  /* 더 작게 조정 */
-        padding: 10px 14px;
-        letter-spacing: 0.02em;
-    }
-    
-    .coupon-info {
-        font-size: 0.8rem;
-        margin-bottom: 6px;
-    }
-    
-    .upload-button {
-        font-size: 1rem;
-        padding: 14px 24px;
-    }
-    
-    .reset-button {
-        font-size: 1rem;
-        padding: 14px 28px;
+        font-size: 1.05rem;
+        padding: 16px;
     }
 }
